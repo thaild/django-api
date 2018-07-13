@@ -3,7 +3,8 @@ services:
   python:
     build: .
     container_name: api_python
-    command: uwsgi --http :8000 --module mysite.wsgi
+    command: python manage.py runserver 0.0.0.0:8000
+    #uwsgi --http :8000 --module mysite.wsgi
     volumes:
       - ./api:/code
     # ports:
