@@ -1,0 +1,82 @@
+version: '2'
+services:
+  python:
+    build: .
+    container_name: api_python
+    command: uwsgi --http :8000 --module mysite.wsgi
+    volumes:
+      - ./api:/code
+    expose:
+      - "8000"
+    depends_on:
+      - postgres
+    networks:
+      default:
+        ipv4_address: 172.23.0.81
+    restart: unless-stopped
+  
+  nginx:
+    build: ./docker/nginx
+    container_name: api_nginx
+    networks:
+      default:
+        ipv4_address: 172.23.0.80
+    ports:
+      - '80:80'
+    volumes:
+      - ./api:/code
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d    
+      - ./docker/logs/nginx:/var/log/nginx
+    links:
+      - python
+    volumes_from:
+      - python
+    restart: always
+
+
+
+  postgres:
+    image: postgres:alpine
+    container_name: api_postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=database
+      - PGDATA="/var/lib/postgresql/data"
+    volumes:
+      - pg_data:/var/lib/postgresql/data  
+    expose:
+      - "5432"
+    restart: always
+    networks:
+      default:
+        ipv4_address: 172.23.0.54
+
+  pgadmin:
+    links:
+      - postgres:postgres
+    image: dpage/pgadmin4
+    container_name: api_pgadmin4
+    # volumes:
+    #   - /data/pgadmin:/root/.pgadmin
+    ports:
+      - "5050:5050"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=thaiattt@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+    networks:
+      default:
+        ipv4_address: 172.23.0.50
+    restart: unless-stopped
+
+volumes:
+  pg_data:
+  
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.23.0.0/16

@@ -1,0 +1,10 @@
+.git
+.git/*/*
+.git/*/
+!.git/HEAD
+!.git/FETCH_HEAD
+.dockerignore
+.git*
+docker*
+docker/*
+docker/

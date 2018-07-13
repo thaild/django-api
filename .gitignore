@@ -1,0 +1,25 @@
+.idea/*
+.idea
+/.idea
+/.idea/*
+/.idea/**
+**/.idea/**/**
+
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+.env
+db.sqlite3
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Distribution / packaging
+.Python
+build/
+*.pyc
