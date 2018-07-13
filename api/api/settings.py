@@ -25,7 +25,7 @@ SECRET_KEY = 'ay^1az!%n%g5v=kb7d_4r05f=1zti*d_(sbouwh5e2tk0uqc57'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['172.23.0.81', '172.23.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -77,9 +77,10 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'api',
+        'USER': 'thaiwill',
+        'PASSWORD': 'thaiwill',
         'HOST': 'postgres',
         'PORT': 5432,
     }
