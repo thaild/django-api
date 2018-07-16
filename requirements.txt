@@ -8,3 +8,5 @@ dj-database-url==0.4.2
 gunicorn==19.7.1
 whitenoise==3.3.1
 uwsgi
+bootstrap-admin
+django-debug-toolbar
